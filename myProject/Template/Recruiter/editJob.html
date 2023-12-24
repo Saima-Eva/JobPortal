@@ -1,0 +1,77 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Application Form</title>
+    <style>
+    
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <form action="{% url "updatePage" %}" method='POST'>
+        {% csrf_token %}
+        {% for i in job %}
+        <label for="jobTitle">Job ID:</label>
+        <input type="text" value="{{i.id}}" id="jobTitle" name="jobid" required>
+
+        <label for="jobTitle">Job Title:</label>
+        <input type="text" value="{{i.job_title}}" id="jobTitle" name="jobTitle" required>
+
+        <label for="companyName">Company Name:</label>
+        <input type="text" value="{{i.company_name}}" id="companyName" name="companyName" required>
+
+        <label for="location">Location:</label>
+        <input type="text" value="{{i.location}}" id="location" name="location" required>
+
+        <label for="description">Description:</label>
+        <textarea id="description"  name="description" rows="4" required>{{i.description}}</textarea>
+
+        <button type="submit">Update the job</button>
+        {% endfor %}
+    </form>
+
+</body>
+</html>
+
+
+{% endblock content %}

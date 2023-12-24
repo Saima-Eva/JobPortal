@@ -1,0 +1,27 @@
+{% block content %}
+
+<nav>
+
+
+    {% comment %} Recruiter can access below menu {% endcomment %}
+    
+   {% if user.user_type == 'recruiter' %}
+   
+   <a href="#home">Home</a>
+   <a href=" {% url "add_job_Page" %}" >Add Job</a>
+   <a href="{% url "viewjobPage" %}">View Job</a>
+   <a href="{% url "ProfilePage" %}">Profile</a>
+   <a href="{% url "logoutPage" %}">Logout</a>
+
+   {% comment %} Job Seeker can access below menu {% endcomment %}
+
+    {% elif user.user_type == 'jobseeker' %}
+    <a href="#home">Home</a>
+    <a href="{% url "viewjobPage" %}">View Job</a>
+    <a href="#profile">Applied Job</a>
+    <a href="{% url "ProfilePage" %}">Profile</a>
+    <a href="{% url "logoutPage" %}">Logout</a>
+   {% endif %}
+
+</nav>
+{% endblock content %}
