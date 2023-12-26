@@ -9,12 +9,18 @@
             <h3>{{i.job_title}}</h3> 
             <p>Company: {{i.company_name}}</p> 
             <p>Location: {{i.location}}</p> 
-            <p>Description: {{i.description}}</p> 
+            <p>Company Description: {{i.company_description}}</p> 
+            <p>Job Description: {{i.job_description}}</p>
+            <p>Qualifications:{{i.qualifications}}</p>
+            <p>Deadline:{{i.deadline}}</p> 
             <p>Create By: {{i.job_creator}}</p> 
             <p>Create Time: {{i.create_at}}</p> 
             {% if user.user_type == 'jobseeker' %}
             <a href=" {% url "applyPage" i.id %} ">Apply Now</a> 
             {% endif %}
+
+            
+        <img class="profile-picture" src="/{{i.profile_picture}}" alt="My Profile Picture">
 
             {% if user.user_type == 'recruiter' %}
             <a href=" {% url "editPage" i.id %} ">Edit</a> 

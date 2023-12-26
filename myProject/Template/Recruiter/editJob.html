@@ -48,7 +48,7 @@
 </head>
 <body>
 
-    <form action="{% url "updatePage" %}" method='POST'>
+    <form action="{% url 'updatePage' %}" method='POST' enctype="multipart/form-data">
         {% csrf_token %}
         {% for i in job %}
         <label for="jobTitle">Job ID:</label>
@@ -57,14 +57,27 @@
         <label for="jobTitle">Job Title:</label>
         <input type="text" value="{{i.job_title}}" id="jobTitle" name="jobTitle" required>
 
+        <label for="profile_picture">Profile Picture:</label>
+        <input type="file" id="profile_picture" value="{{i.profile_picture}}" name="profile_picture">
+        
+
         <label for="companyName">Company Name:</label>
         <input type="text" value="{{i.company_name}}" id="companyName" name="companyName" required>
 
         <label for="location">Location:</label>
         <input type="text" value="{{i.location}}" id="location" name="location" required>
 
-        <label for="description">Description:</label>
-        <textarea id="description"  name="description" rows="4" required>{{i.description}}</textarea>
+        <label for="company_description">Company Description:</label>
+        <textarea id="company_description"  name="company_description" rows="4" required>{{i.company_description}}</textarea>
+
+        <label for="job_description">Job Description:</label>
+        <textarea id="job_description"  name="job_description" rows="4" required>{{i.job_description}}</textarea>
+
+        <label for="qualifications">Qualifications:</label>
+        <textarea id="qualifications" name="qualifications" rows="4" required {{i.qualifications}}></textarea>
+
+        <label for="deadline">Deadline:</label>
+        <input type="deadline" id="deadline" name="deadline" required {{i.deadline}}>
 
         <button type="submit">Update the job</button>
         {% endfor %}

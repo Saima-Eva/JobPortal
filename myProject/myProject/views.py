@@ -72,16 +72,26 @@ def add_job_Page(request):
     if request.method == 'POST':
 
         jobTitle=request.POST.get('jobTitle')
+        profile_pic=request.FILES.get('profile_picture')
         companyName=request.POST.get('companyName')
         location=request.POST.get('location')
-        description=request.POST.get('description')
+        company_description=request.POST.get('company_description')
+        job_description=request.POST.get('job_description')
+        qualifications=request.POST.get('qualifications')
+        deadline=request.POST.get('deadline')
+        
 
         job=job_model(
             job_title=jobTitle,
+            profile_picture=profile_pic,
             company_name=companyName,
             location=location,
-            description=description,
+            company_description=company_description,
+            job_description=job_description,
+            qualifications=qualifications,
+            deadline=deadline,
             job_creator=user,
+            
         )
         job.save()
 
@@ -110,15 +120,21 @@ def updatePage(request):
 
         job_id=request.POST.get('jobid')
         jobTitle=request.POST.get('jobTitle')
+        profile_pic=request.FILES.get('profile_picture')
         companyName=request.POST.get('companyName')
         location=request.POST.get('location')
-        description=request.POST.get('description')
+        company_description=request.POST.get('company_description')
+        job_description=request.POST.get('job_description')
+        qualifications=request.POST.get('qualifications')
         job=job_model(
             id=job_id,
             job_title=jobTitle,
+            profile_picture=profile_pic,
             company_name=companyName,
             location=location,
-            description=description,
+            company_description=company_description,
+            job_description=job_description,
+            qualifications=qualifications,
             job_creator=user,
         )
         job.save()
@@ -126,7 +142,7 @@ def updatePage(request):
 
 
 def applyPage(request,myid):
-
+    
     job=job_model.objects.filter(id=myid)
 
     return render(request,'JobSeeker/applyjob.html')

@@ -20,8 +20,13 @@ class job_model(models.Model):
     job_title=models.CharField(max_length=100,null=True)
     company_name=models.CharField(max_length=100,null=True)
     location=models.CharField(max_length=100,null=True)
-    description=models.TextField()
+    company_description=models.TextField(null=True)
+    job_description=models.TextField(null=True)
+    qualifications=models.TextField(null=True)
+    deadline=models.CharField(max_length=100,null=True)
     create_at = models.DateTimeField(auto_now_add=True,null=True)
+    update_at = models.DateTimeField(auto_now=True,null=True)
+    profile_picture=models.ImageField(upload_to='media/profile_pic',null=True)
     job_creator = models.ForeignKey(Custom_User,on_delete=models.CASCADE)
     
     def __str__(self):

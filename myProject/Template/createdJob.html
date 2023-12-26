@@ -27,6 +27,12 @@
   background-color: #04AA6D;
   color: white;
 }
+#customers td img {
+  max-width: 100px; 
+  height: auto; 
+  border-radius: 50%; 
+}
+
 </style>
 </head>
 <body>
@@ -38,6 +44,8 @@
     <th>Job Title</th>
     <th>Location</th>
     <th>Created Time</th>
+    <th>Updated Time</th>
+    <th>Image</th>
     <th>Action</th>
   </tr>
   {% for i in creator %}
@@ -46,6 +54,8 @@
     <td>{{i.job_title}}</td>
     <td>{{i.location}}</td>
     <td>{{i.create_at}}</td>
+    <td>{{i.update_at}}</td>
+    <td>{{i.image}}  <img class="profile-picture" src="/{{i.profile_picture}}" alt="My Profile Picture"></td>
     <td>
         <a href='{% url "editPage" i.id %}'>Edit</a>
         <a href='{% url "deletePage" i.id %}'>Delete</a>

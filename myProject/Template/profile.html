@@ -104,6 +104,9 @@
         <a href="{% url 'EditProfilePage' %}" class="edit-profile-button">Edit Profile</a>
         <a href="{% url 'changePasswordPage' %}" class="edit-profile-button">Change Password</a>
         <a href="{% url 'createdJobByRecruiter' %}" class="edit-profile-button">Created Job</a>
+        {% if user.user_type == 'recruiter' %}
+        <a href="{#}" class="edit-profile-button">View Resume</a>
+        {% endif %}
     </div>
 
     <div class="profile-info">
