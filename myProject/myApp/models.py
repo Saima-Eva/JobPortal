@@ -45,5 +45,13 @@ class JobSeekerProfile(models.Model):
     skills=models.CharField(max_length=100,null=True)
 
     
+class jobApplyModel(models.Model):
+    job=models.ForeignKey(job_model, on_delete=models.CASCADE,null=True)
+    applicant=models.ForeignKey(Custom_User, on_delete=models.CASCADE,null=True)
+    skills=models.CharField(max_length=100,null=True)
+    apply_resume=models.FileField(upload_to='media/apply_resume', null=True)
+
+    def __str__(self) -> str:
+        return f"{self.application.desplay_name} Applied for {self.job.job_title}"
 
 

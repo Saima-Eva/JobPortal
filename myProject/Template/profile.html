@@ -103,21 +103,23 @@
         <p>{{ request.user.email }}</p>
         <a href="{% url 'EditProfilePage' %}" class="edit-profile-button">Edit Profile</a>
         <a href="{% url 'changePasswordPage' %}" class="edit-profile-button">Change Password</a>
+        
+        {% if user.user_type == 'recruiter'  %}
         <a href="{% url 'createdJobByRecruiter' %}" class="edit-profile-button">Created Job</a>
-        {% if user.user_type == 'recruiter' %}
-        <a href="{#}" class="edit-profile-button">View Resume</a>
+        {% endif %}
+
+
+        {% if user.user_type == 'jobseeker'  %}
+        {% if user.jobseekerprofile.resume %}
+         <a href="{{request.user.jobseekerprofile.resume.url}}" target="_blank" class="edit-profile-button">View Resume</a>
+        {% endif %}
         {% endif %}
     </div>
 
     <div class="profile-info">
         <h2>User Type: {{ request.user.user_type }}</h2>
 
-        <h2>Skills:</h2>
-        <ul class="skills-list">
-            <li>Skill 1</li>
-            <li>Skill 2</li>
-            <li>Skill 3</li>
-        </ul>
+        <h2>Skills:{{request.user.jobseekerprofile.skills}}</h2>
     </div>
 </div>
 

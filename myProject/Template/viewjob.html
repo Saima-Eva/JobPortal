@@ -14,7 +14,8 @@
             <p>Qualifications:{{i.qualifications}}</p>
             <p>Deadline:{{i.deadline}}</p> 
             <p>Create By: {{i.job_creator}}</p> 
-            <p>Create Time: {{i.create_at}}</p> 
+            <p>Create Time: {{i.create_at}}</p>
+            <p>Update Time: {{i.update_at}}</p> 
             {% if user.user_type == 'jobseeker' %}
             <a href=" {% url "applyPage" i.id %} ">Apply Now</a> 
             {% endif %}

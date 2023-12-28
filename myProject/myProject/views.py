@@ -1,9 +1,10 @@
-from django.shortcuts import redirect,render
+from django.shortcuts import redirect,render,get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import check_password
 from django.contrib import messages
+from django.core.exceptions import ObjectDoesNotExist
 
 from myApp.models import *
 
@@ -142,10 +143,35 @@ def updatePage(request):
 
 
 def applyPage(request,myid):
-    
-    job=job_model.objects.filter(id=myid)
 
-    return render(request,'JobSeeker/applyjob.html')
+    job=get_object_or_404(job_model,id=myid)
+
+    if request.method == 'POST':
+        skills=request.POST.get('skills')
+        resume=request.FILES.get('resume')
+
+        if skills and resume:
+            job_seeker=request.user
+
+            application=jobApplyModel.objects.create(
+            job=job,
+            applicant=job_seeker,
+            skills=skills,
+            apply_resume=resume,
+        )
+            application.save()
+        else:
+            messages.error(request,'Error in application form, please check it!')
+        messages.success(request,'Apply Successfully')
+
+        return redirect("ProfilePage")
+    
+    context={
+        'job':job
+    }
+
+    return render(request,'JobSeeker/applyjob.html',context)
+
 
 def ProfilePage(request):
 
@@ -164,6 +190,8 @@ def EditProfilePage(request):
         email= request.POST.get('email')
         image= request.FILES.get('profile_picture')
         entered_password= request.POST.get('password')
+        resume=request.FILES.get('resume')
+        skills=request.POST.get('skills')
 
         if not check_password(entered_password,user.password):
             messages.error(request,'Profile not updated, Wrong Password')
@@ -173,6 +201,18 @@ def EditProfilePage(request):
         user.first_name=first_name
         user.last_name=last_name
         user.display_name=display_name
+        
+        
+        if user.user_type == 'jobseeker':
+            try:
+               job_seeker_profile=user.jobseekerprofile
+
+            except ObjectDoesNotExist:
+               job_seeker_profile= JobSeekerProfile(user=user)
+               
+            job_seeker_profile.resume=resume
+            job_seeker_profile.skills=skills
+            job_seeker_profile.save()
 
         if image:
             user.profile_picture=image

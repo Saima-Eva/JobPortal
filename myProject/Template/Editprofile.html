@@ -100,6 +100,14 @@
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" value="{{ request.user.email }}" required readonly>
 
+        {% if user.user_type == 'jobseeker' %}
+        <label for="skills">Skills:</label>
+        <input type="text" id="skills" name="skills" required>
+
+        <label for="resume">Resume:</label>
+        <input type="file" id="resume" name="resume" required>
+        {% endif %}
+
         <label for="profile_picture">Profile Picture:</label>
         <input type="file" id="profile_picture" name="profile_picture">
         
